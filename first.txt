@@ -1,0 +1,7 @@
+File "tappo" per creare un progetto GIT nuovo
+da usare in "SAP Web IDE for SAP Hana"
+
+Può essere cancellato quando si vuole,
+ma dopo il primo import del progetto i
+e dopo aver aggiunto almeno un altro file
+
