@@ -1,0 +1,61 @@
+{
+"format_version": 1,
+    "imports": [
+        {
+            "target_table": "TariffRules.Tariff",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "tariff.csv",
+                "has_header": false,
+                "dialect": "HANA",
+                "type_config": {
+                    "delimiter": ","
+                }
+            },
+            "import_settings": {
+                "import_columns": [
+                    "ID",
+                    "CODE",
+                    "NAME",
+                    "DESCRIPTION",
+                    "STATUS"
+                ]
+            },
+            "column_mappings": {
+                "ID": 1,
+                "CODE": 6,
+                "NAME": 7,
+                "DESCRIPTION": 8,
+                "STATUS": 9
+            }
+        },
+        {
+            "target_table": "TariffRules.Rule",
+            "source_data": {
+                "data_type": "CSV",
+                "file_name": "rule.csv",
+                "has_header": false,
+                "dialect": "HANA",
+                "type_config": {
+                    "delimiter": ","
+                }
+            },
+            "import_settings": {
+                "import_columns": [
+                    "ID",
+                    "TARIFF_ID",
+                    "SEQNUM",
+                    "CODE",
+                    "DESCRIPTION"
+                ]
+            },
+            "column_mappings": {
+                "ID": 1,
+                "TARIFF_ID": 2,
+                "SEQNUM": 7,
+                "CODE": 9,
+                "DESCRIPTION": 8
+            }
+        }
+    ]
+}

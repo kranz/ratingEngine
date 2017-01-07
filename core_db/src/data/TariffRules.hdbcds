@@ -1,0 +1,55 @@
+context TariffRules {
+   type BusinessKey : String(10);
+   type SDate : LocalDate;
+   type CurrencyT : String(5);
+   type AmountT : Decimal(15, 2);
+   type QuantityT : Decimal(13, 3);
+   type NumCodeT : Integer;
+   type AlphaCodeT : String(10);
+   type UnitT : String(3);
+   type StatusT : String(1);
+   type HistoryT {
+      CREATEDBY : BusinessKey;
+      CREATEDAT : SDate;
+      CHANGEDBY : BusinessKey;
+      CHANGEDAT : SDate;
+   };
+
+   entity Tariff {
+      key ID          : BusinessKey;
+          RULES       : association[*] to Rule on RULES.TARIFF_ID = ID;
+          HISTORY     : HistoryT;
+          CODE        : NumCodeT;
+          NAME        : String(100);
+          DESCRIPTION : String(256);
+          STATUS      : StatusT;
+   }
+   technical configuration {
+      column store;
+   };
+   entity Rule {
+      key ID          : BusinessKey;
+          TARIFF_ID   : BusinessKey;
+          TARIFF      : association[1] to Tariff on TARIFF.ID = TARIFF_ID;
+          HISTORY     : HistoryT;
+          SEQNUM      : Integer;
+          CODE        : AlphaCodeT;
+          DESCRIPTION : String(256);
+   }
+   technical configuration {
+      column store;
+   };
+
+   define view RulesView as
+      select from Rule
+      {
+         ID   as "RuleId",
+         TARIFF.CODE    as "TariffCode",
+         TARIFF.NAME    as "TariffName",
+         SEQNUM         as "Progressivo",
+         CODE       	as "RuleCode",
+         DESCRIPTION	as "RuleDescription"
+      }
+      with structured privilege check;
+
+}

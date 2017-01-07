@@ -8,8 +8,26 @@ modules:
     path: web
     requires:
       - name: ratingEngine-uaa
+
+  - name: core_db
+    type: hdb
+    path: core_db
+    requires:
+     - name: hdi-container
+       properties:
+         TARGET_CONTAINER: ~{hdi-container-name}
+
 resources:
   - name: ratingEngine-uaa
     type: com.sap.xs.uaa
     parameters:
       config_path: ./xs-security.json
+
+  - name: hdi-container
+    parameters:
+       config:
+          schema: rating_engine
+    properties:
+       hdi-container-name: ${service-name}
+    type: com.sap.xs.hdi-container
+
