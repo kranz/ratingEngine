@@ -1,0 +1,19 @@
+PROCEDURE "get_tr_tariff_data" ( 
+   OUT TARIFF_LIST TABLE(
+            TRCODE INTEGER, 
+			TRNAME NVARCHAR(100), 
+			TRDESC NVARCHAR(256),
+			TRSTATUS NVARCHAR(1) )  
+)
+   LANGUAGE SQLSCRIPT
+   SQL SECURITY INVOKER
+   --DEFAULT SCHEMA <default_schema_name>
+   READS SQL DATA AS
+BEGIN
+   /*************************************
+       Write your procedure logic 
+   *************************************/
+TARIFF_LIST = SELECT CODE AS TRCODE, NAME AS TRNAME, 
+					 DESCRIPTION AS TRDESC, STATUS AS TRSTATUS 
+			  FROM "TariffRules.Tariff";
+END

@@ -1,0 +1,21 @@
+FUNCTION "get_roles_with_tariff" ( )
+	RETURNS TABLE (            
+		TARIFF_NAME NVARCHAR(100),
+		PROGRESSIVO INTEGER, 
+		CODICE NVARCHAR(100),
+		DESCR NVARCHAR(256))  
+	LANGUAGE SQLSCRIPT 
+	SQL SECURITY INVOKER AS 
+BEGIN 
+/*****************************  
+	Write your function logic 
+ *****************************/ 
+ return 
+	SELECT
+			T1."NAME" as TARIFF_NAME,
+			T2."SEQNUM" as PROGRESSIVO,
+			T2."CODE" AS CODICE,
+			T2."DESCRIPTION" AS DESCR
+		from "TariffRules.Tariff" T1 
+    	inner join "TariffRules.Rule" T2 on T1."ID" = T2."TARIFF_ID";
+END;            

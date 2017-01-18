@@ -1,0 +1,10 @@
+service {
+    "TariffRules.Tariff" 
+	  as "TRTariff" navigates ("Rules" as "TRRule");
+	  
+	"TariffRules.Rule" 
+	  as "TRRule";
+	  
+	association "Rules" principal  "TRTariff"("ID")
+	multiplicity "1" dependent "TRRule"("Tariff_ID") multiplicity "*";
+}
